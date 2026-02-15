@@ -26,13 +26,11 @@ canvas{position:fixed;top:0;left:0;pointer-events:none;z-index:1;}
 </head>
 <body>
 
-<!-- Tela inicial -->
 <div id="intro">
 <h2>Prepare-se... ❤️</h2>
 <button onclick="startExperience()">Começar</button>
 </div>
 
-<!-- Música MP3 -->
 <audio id="musica" preload="auto">
   <source src="partilhar.mp3" type="audio/mpeg">
 </audio>
@@ -50,7 +48,7 @@ canvas{position:fixed;top:0;left:0;pointer-events:none;z-index:1;}
 </div>
 
 <script>
-/* ESTRELAS */
+// ESTRELAS
 for(let i=0;i<120;i++){
     let star=document.createElement("div");
     star.className="star";
@@ -60,30 +58,36 @@ for(let i=0;i<120;i++){
     document.getElementById("stars").appendChild(star);
 }
 
-/* CONTADOR */
+// CONTADOR COMPLETO
 function atualizarContador(){
-    const inicio = new Date("2024-09-22");
-    const hoje = new Date();
-    const diff = hoje - inicio;
+    const inicio = new Date("2024-09-22T15:26:00");
+    const agora = new Date();
+    const diff = agora - inicio;
+
     const dias = Math.floor(diff / (1000*60*60*24));
+    const horas = Math.floor((diff / (1000*60*60)) % 24);
+    const minutos = Math.floor((diff / (1000*60)) % 60);
+    const segundos = Math.floor((diff / 1000) % 60);
+
     document.getElementById("contador").innerText =
-        "Juntos há " + dias + " dias ❤️ (desde 22/09/2024)";
+        `Estamos juntos há ${dias} dias, ${horas}h ${minutos}m ${segundos}s ❤️`;
 }
+setInterval(atualizarContador,1000);
 atualizarContador();
 
-/* VARIÁVEIS */
+// VARIÁVEIS
 const textEl=document.getElementById("text");
 const buttons=document.getElementById("buttons");
 const simBtn=document.getElementById("sim");
 const naoBtn=document.getElementById("nao");
 const musica=document.getElementById("musica");
 const nome="Maysa Eduarda Olivo";
-    const nome2="Maysa";
+const nome2="Maysa";
 const abertura="Maysa Eduarda Olivo ❤️";
 const declaracao="Desde 22/09/2024 minha vida mudou completamente. Você trouxe luz, paz, amor e propósito. Você é meu melhor encontro, meu sorriso diário e meu futuro.";
 const pedido="Maysa Eduarda Olivo, você aceita viver todos os seus próximos dias ao meu lado? 💍";
 
-/* FUNÇÃO DE DIGITAÇÃO */
+// DIGITAÇÃO
 function typeText(text,callback){
     let i=0;
     textEl.innerHTML="";
@@ -97,7 +101,7 @@ function typeText(text,callback){
     },40);
 }
 
-/* INICIAR EXPERIÊNCIA */
+// INICIAR EXPERIÊNCIA
 function startExperience(){
     document.getElementById("intro").style.display="none";
     musica.play();
@@ -112,7 +116,7 @@ function startExperience(){
     });
 }
 
-/* BOTÕES */
+// BOTÕES
 let tentativas=0;
 function fugir(){
     tentativas++;
@@ -132,7 +136,7 @@ simBtn.addEventListener("click",()=>{
     startHearts();
 });
 
-/* FOGOS */
+// FOGOS
 const canvas=document.getElementById("fireworks");
 const ctx=canvas.getContext("2d");
 canvas.width=window.innerWidth;
@@ -169,7 +173,7 @@ function animate(){
 }
 animate();
 
-/* CORAÇÕES */
+// CORAÇÕES
 function startHearts(){
     setInterval(()=>{
         let heart=document.createElement("div");
