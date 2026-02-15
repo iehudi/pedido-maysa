@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Maysa Eduarda Olivo ❤️</title>
+
+<style>
+body{
+    margin:0;
+    overflow:hidden;
+    font-family:'Segoe UI', sans-serif;
+    background:black;
+    color:white;
+    text-align:center;
+}
+
+/* TELA INICIAL */
+#intro{
+    position:fixed;
+    width:100%;
+    height:100%;
+    background:black;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    flex-direction:column;
+    z-index:999;
+}
+
+#intro button{
+    padding:15px 30px;
+    font-size:18px;
+    border:none;
+    border-radius:30px;
+    background:linear-gradient(45deg,#ff007f,#ff4da6);
+    color:white;
+    cursor:pointer;
+    box-shadow:0 0 25px #ff4da6;
+}
+
+/* FUNDO ESTRELADO */
+.stars{
+    position:fixed;
+    width:100%;
+    height:100%;
+    background:radial-gradient(circle at 50% 20%, #2a003f, #000 70%);
+}
+
+.star{
+    position:absolute;
+    width:2px;
+    height:2px;
+    background:white;
+    border-radius:50%;
+    animation:twinkle 2s infinite alternate;
+}
+
+@keyframes twinkle{
+    from{opacity:0.2;}
+    to{opacity:1;}
+}
+
+.container{
+    position:relative;
+    top:45vh;
+    transform:translateY(-50%);
+    padding:20px;
+    z-index:2;
+}
+
+h1{
+    font-size:26px;
+    min-height:120px;
+    line-height:1.6;
+    text-shadow:0 0 15px #ff4da6;
+}
+
+.nome{
+    font-size:34px;
+    animation:pulse 1.5s infinite alternate;
+}
+
+@keyframes pulse{
+    from{transform:scale(1);}
+    to{transform:scale(1.1);}
+}
+
+.data{
+    font-size:16px;
+    opacity:0.8;
+    margin-top:10px;
+}
+
+button{
+    padding:15px 30px;
+    font-size:18px;
+    border:none;
+    border-radius:30px;
+    margin:10px;
+    cursor:pointer;
+    transition:0.3s;
+}
+
+#sim{
+    background:linear-gradient(45deg,#ff007f,#ff4da6);
+    color:white;
+    box-shadow:0 0 30px #ff4da6;
+}
+
+#nao{
+    background:#555;
+    color:white;
+    position:absolute;
+}
+
+canvas{
+    position:fixed;
+    top:0;
+    left:0;
+    pointer-events:none;
+    z-index:1;
+}
+
+.heart{
+    position:fixed;
+    bottom:-20px;
+    font-size:20px;
+    animation:subir 6s linear infinite;
+    opacity:0.8;
+    z-index:1;
+}
+
+@keyframes subir{
+    from{transform:translateY(0);}
+    to{transform:translateY(-110vh);}
+}
+
+iframe{
+    display:none;
+}
+</style>
+</head>
+<body>
+
+<!-- INTRO -->
+<div id="intro">
+    <h2>Prepare-se... ❤️</h2>
+    <button onclick="startExperience()">Começar</button>
+</div>
+
+<!-- Música -->
+<iframe id="music"
+src="https://www.youtube.com/embed/6rqlAqK3qzM?enablejsapi=1"
+allow="autoplay">
+</iframe>
+
+<div class="stars" id="stars"></div>
+<canvas id="fireworks"></canvas>
+
+<div class="container">
+    <h1 id="text"></h1>
+    <div class="data" id="contador"></div>
+    <div id="buttons" style="display:none;">
+        <button id="sim">SIM ❤️</button>
+        <button id="nao">NÃO 😅</button>
+    </div>
+</div>
+
+<script>
+
+/* CONTADOR DE DIAS */
+function atualizarContador(){
+    const inicio = new Date("2024-09-22");
+    const hoje = new Date();
+    const diff = hoje - inicio;
+    const dias = Math.floor(diff / (1000*60*60*24));
+    document.getElementById("contador").innerText =
+        "Juntos há " + dias + " dias ❤️ (desde 22/09/2024)";
+}
+atualizarContador();
+
+/* ESTRELAS */
+for(let i=0;i<120;i++){
+    let star=document.createElement("div");
+    star.className="star";
+    star.style.top=Math.random()*100+"vh";
+    star.style.left=Math.random()*100+"vw";
+    star.style.animationDuration=(Math.random()*3+1)+"s";
+    document.getElementById("stars").appendChild(star);
+}
+
+const textEl=document.getElementById("text");
+const buttons=document.getElementById("buttons");
+const simBtn=document.getElementById("sim");
+const naoBtn=document.getElementById("nao");
+const music=document.getElementById("music");
+
+const nome="Maysa Eduarda Olivo";
+const nome2="Maysa ";
+
+const abertura="Maysa Eduarda Olivo ❤️";
+const declaracao="Desde 22/09/2024 minha vida mudou completamente. Você trouxe luz, paz, amor e propósito. Você é meu melhor encontro, meu sorriso diário e meu futuro.";
+const pedido="Maysa Eduarda Olivo, você aceita viver todos os seus próximos dias ao meu lado? 💍";
+
+function typeText(text,callback){
+    let i=0;
+    textEl.innerHTML="";
+    let interval=setInterval(()=>{
+        textEl.innerHTML+=text.charAt(i);
+        i++;
+        if(i>=text.length){
+            clearInterval(interval);
+            setTimeout(callback,2000);
+        }
+    },40);
+}
+
+/* INICIAR EXPERIÊNCIA */
+function startExperience(){
+    document.getElementById("intro").style.display="none";
+    music.src+="&autoplay=1";
+    textEl.classList.add("nome");
+    typeText(abertura,()=>{
+        textEl.classList.remove("nome");
+        typeText(declaracao,()=>{
+            typeText(pedido,()=>{
+                buttons.style.display="block";
+            });
+        });
+    });
+}
+
+/* BOTÕES */
+let tentativas=0;
+
+function fugir(){
+    tentativas++;
+    naoBtn.style.top=Math.random()*80+"vh";
+    naoBtn.style.left=Math.random()*80+"vw";
+    naoBtn.style.transform="scale("+(1 - tentativas*0.1)+")";
+    simBtn.style.transform="scale("+(1 + tentativas*0.1)+")";
+}
+
+naoBtn.addEventListener("mouseover",fugir);
+naoBtn.addEventListener("touchstart",fugir);
+
+simBtn.addEventListener("click",()=>{
+    textEl.classList.add("nome");
+    textEl.innerHTML=nome2+" disse SIM! ❤️✨💍";
+    buttons.style.display="none";
+    startFireworks();
+    startHearts();
+});
+
+/* FOGOS */
+const canvas=document.getElementById("fireworks");
+const ctx=canvas.getContext("2d");
+canvas.width=window.innerWidth;
+canvas.height=window.innerHeight;
+let particles=[];
+
+function startFireworks(){
+    setInterval(()=>{
+        for(let i=0;i<150;i++){
+            particles.push({
+                x:Math.random()*canvas.width,
+                y:Math.random()*canvas.height/2,
+                angle:Math.random()*2*Math.PI,
+                speed:Math.random()*5+2,
+                radius:Math.random()*2+1,
+                life:100
+            });
+        }
+    },600);
+}
+
+function animate(){
+    requestAnimationFrame(animate);
+    ctx.fillStyle="rgba(0,0,0,0.2)";
+    ctx.fillRect(0,0,canvas.width,canvas.height);
+    particles.forEach((p,index)=>{
+        p.x+=Math.cos(p.angle)*p.speed;
+        p.y+=Math.sin(p.angle)*p.speed;
+        p.life--;
+        ctx.beginPath();
+        ctx.arc(p.x,p.y,p.radius,0,2*Math.PI);
+        ctx.fillStyle="hsl("+Math.random()*360+",100%,60%)";
+        ctx.fill();
+        if(p.life<=0)particles.splice(index,1);
+    });
+}
+animate();
+
+/* CORAÇÕES */
+function startHearts(){
+    setInterval(()=>{
+        let heart=document.createElement("div");
+        heart.className="heart";
+        heart.style.left=Math.random()*100+"vw";
+        heart.innerHTML="❤️";
+        document.body.appendChild(heart);
+        setTimeout(()=>heart.remove(),6000);
+    },400);
+}
+</script>
+
+</body>
+</html>
